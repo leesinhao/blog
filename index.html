@@ -1,1 +1,655 @@
-321312312
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的个人博客</title>
+    <style>
+      /* 全局样式 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fa;
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+        transition: color 0.3s;
+      }
+
+      a:hover {
+        color: #0056b3;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* 头部样式 */
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .logo span {
+        color: #007bff;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        color: #333;
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+
+      nav ul li a:hover {
+        color: #007bff;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* 英雄区域样式 */
+      .hero {
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        color: #fff;
+        padding: 80px 0;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background-color: #fff;
+        color: #007bff;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+      }
+
+      .cta-button:hover {
+        background-color: #f0f0f0;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      /* 主要内容区域 */
+      .main-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      /* 文章列表样式 */
+      .articles h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eaeaea;
+      }
+
+      .article-card {
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .article-image {
+        height: 200px;
+        background-color: #eee;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .article-content {
+        padding: 25px;
+      }
+
+      .article-meta {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .article-meta .date {
+        margin-right: 20px;
+      }
+
+      .article-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        line-height: 1.3;
+      }
+
+      .article-excerpt {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .read-more {
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .read-more::after {
+        content: "→";
+        margin-left: 5px;
+        transition: transform 0.3s;
+      }
+
+      .read-more:hover::after {
+        transform: translateX(5px);
+      }
+
+      /* 侧边栏样式 */
+      .sidebar {
+        position: sticky;
+        top: 100px;
+      }
+
+      .sidebar-widget {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .sidebar-widget h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eaeaea;
+      }
+
+      .about-me p {
+        margin-bottom: 15px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+
+      .social-links a:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      .categories ul {
+        list-style: none;
+      }
+
+      .categories ul li {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      .categories ul li:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .categories ul li a {
+        display: flex;
+        justify-content: space-between;
+        color: #333;
+      }
+
+      .categories ul li a:hover {
+        color: #007bff;
+      }
+
+      .categories .count {
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        padding: 2px 10px;
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      .recent-posts ul li {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      .recent-posts ul li:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .recent-posts .post-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+        line-height: 1.4;
+        display: block;
+      }
+
+      .recent-posts .post-date {
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      /* 页脚样式 */
+      footer {
+        background-color: #2c3e50;
+        color: #fff;
+        padding: 60px 0 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .footer-column p {
+        margin-bottom: 15px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: rgba(255, 255, 255, 0.7);
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: #fff;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 992px) {
+        .main-content {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+
+        .footer-content {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        nav {
+          margin-top: 20px;
+        }
+
+        nav ul li {
+          margin: 0 15px;
+        }
+
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        nav ul {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero {
+          padding: 60px 0;
+        }
+
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 头部区域 -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">博客<span>空间</span></div>
+          <div class="mobile-menu-btn">☰</div>
+          <nav>
+            <ul>
+              <li><a href="#">首页</a></li>
+              <li><a href="#">博客</a></li>
+              <li><a href="#">分类</a></li>
+              <li><a href="#">关于我</a></li>
+              <li><a href="#">联系</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+      <div class="container">
+        <h1>欢迎来到我的博客空间</h1>
+        <p>这里记录我的思考、学习和生活，分享我的知识和经验。</p>
+        <a href="#" class="cta-button">了解更多</a>
+      </div>
+    </section>
+
+    <!-- 主要内容区域 -->
+    <div class="container">
+      <div class="main-content">
+        <!-- 文章列表 -->
+        <div class="articles">
+          <h2>最新文章</h2>
+
+          <!-- 文章卡片 1 -->
+          <article class="article-card">
+            <div class="article-image" style="background-color: #3498db"></div>
+            <div class="article-content">
+              <div class="article-meta">
+                <span class="date">2023年12月15日</span>
+                <span class="category">技术</span>
+              </div>
+              <h3 class="article-title">
+                <a href="#">如何提高编程效率：实用工具与技巧分享</a>
+              </h3>
+              <p class="article-excerpt">
+                在这篇文章中，我将分享一些能够显著提高编程效率的工具和技巧，包括代码编辑器的选择、快捷键的使用、自动化脚本的编写等内容...
+              </p>
+              <a href="#" class="read-more">阅读全文</a>
+            </div>
+          </article>
+
+          <!-- 文章卡片 2 -->
+          <article class="article-card">
+            <div class="article-image" style="background-color: #2ecc71"></div>
+            <div class="article-content">
+              <div class="article-meta">
+                <span class="date">2023年12月10日</span>
+                <span class="category">旅行</span>
+              </div>
+              <h3 class="article-title">
+                <a href="#">探索未知的角落：一次难忘的徒步之旅</a>
+              </h3>
+              <p class="article-excerpt">
+                上个月，我踏上了一段徒步旅行的冒险，探索了一些鲜为人知的自然风光。这次经历不仅让我领略了大自然的壮美，还让我对自己有了更深的认识...
+              </p>
+              <a href="#" class="read-more">阅读全文</a>
+            </div>
+          </article>
+
+          <!-- 文章卡片 3 -->
+          <article class="article-card">
+            <div class="article-image" style="background-color: #e74c3c"></div>
+            <div class="article-content">
+              <div class="article-meta">
+                <span class="date">2023年12月5日</span>
+                <span class="category">读书</span>
+              </div>
+              <h3 class="article-title">
+                <a href="#">2023年度必读书籍推荐：改变我思维方式的五本书</a>
+              </h3>
+              <p class="article-excerpt">
+                在过去的一年里，我读了很多书，其中有几本对我的思维方式产生了深远的影响。在这篇文章中，我想分享这些书籍以及它们如何改变了我的视角...
+              </p>
+              <a href="#" class="read-more">阅读全文</a>
+            </div>
+          </article>
+
+          <!-- 文章卡片 4 -->
+          <article class="article-card">
+            <div class="article-image" style="background-color: #9b59b6"></div>
+            <div class="article-content">
+              <div class="article-meta">
+                <span class="date">2023年11月28日</span>
+                <span class="category">生活</span>
+              </div>
+              <h3 class="article-title">
+                <a href="#">极简主义生活方式：如何减少物质依赖，提升生活品质</a>
+              </h3>
+              <p class="article-excerpt">
+                近年来，极简主义生活方式越来越受到关注。在这篇文章中，我将分享我如何通过减少物质依赖，专注于真正重要的事物，从而提升了生活品质...
+              </p>
+              <a href="#" class="read-more">阅读全文</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+          <!-- 关于我 -->
+          <div class="sidebar-widget about-me">
+            <h3>关于我</h3>
+            <p>
+              你好！我是一名热爱技术、旅行和写作的博主。通过这个博客，我希望能够分享我的经验和见解，同时也希望能够与志同道合的朋友交流。
+            </p>
+            <div class="social-links">
+              <a href="#" title="微博">微</a>
+              <a href="#" title="微信">信</a>
+              <a href="#" title="GitHub">G</a>
+              <a href="#" title="知乎">知</a>
+            </div>
+          </div>
+
+          <!-- 分类 -->
+          <div class="sidebar-widget categories">
+            <h3>文章分类</h3>
+            <ul>
+              <li>
+                <a href="#">技术 <span class="count">15</span></a>
+              </li>
+              <li>
+                <a href="#">旅行 <span class="count">8</span></a>
+              </li>
+              <li>
+                <a href="#">读书 <span class="count">12</span></a>
+              </li>
+              <li>
+                <a href="#">生活 <span class="count">10</span></a>
+              </li>
+              <li>
+                <a href="#">摄影 <span class="count">5</span></a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 最近文章 -->
+          <div class="sidebar-widget recent-posts">
+            <h3>最近文章</h3>
+            <ul>
+              <li>
+                <a href="#" class="post-title"
+                  >如何提高编程效率：实用工具与技巧分享</a
+                >
+                <span class="post-date">2023年12月15日</span>
+              </li>
+              <li>
+                <a href="#" class="post-title"
+                  >探索未知的角落：一次难忘的徒步之旅</a
+                >
+                <span class="post-date">2023年12月10日</span>
+              </li>
+              <li>
+                <a href="#" class="post-title"
+                  >2023年度必读书籍推荐：改变我思维方式的五本书</a
+                >
+                <span class="post-date">2023年12月5日</span>
+              </li>
+              <li>
+                <a href="#" class="post-title"
+                  >极简主义生活方式：如何减少物质依赖，提升生活品质</a
+                >
+                <span class="post-date">2023年11月28日</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <!-- 关于博客 -->
+          <div class="footer-column">
+            <h3>关于博客</h3>
+            <p>
+              这是我的个人博客空间，用于分享我的思考、学习和生活经验。希望这里的内容能够对你有所帮助或启发。
+            </p>
+          </div>
+
+          <!-- 快速链接 -->
+          <div class="footer-column">
+            <h3>快速链接</h3>
+            <ul>
+              <li><a href="#">首页</a></li>
+              <li><a href="#">博客</a></li>
+              <li><a href="#">分类</a></li>
+              <li><a href="#">关于我</a></li>
+              <li><a href="#">联系</a></li>
+            </ul>
+          </div>
+
+          <!-- 热门分类 -->
+          <div class="footer-column">
+            <h3>热门分类</h3>
+            <ul>
+              <li><a href="#">技术</a></li>
+              <li><a href="#">旅行</a></li>
+              <li><a href="#">读书</a></li>
+              <li><a href="#">生活</a></li>
+              <li><a href="#">摄影</a></li>
+            </ul>
+          </div>
+
+          <!-- 联系方式 -->
+          <div class="footer-column">
+            <h3>联系方式</h3>
+            <p>邮箱：example@email.com</p>
+            <p>微信：myblog_wechat</p>
+            <p>地址：中国北京市</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2023 博客空间 - 保留所有权利</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
